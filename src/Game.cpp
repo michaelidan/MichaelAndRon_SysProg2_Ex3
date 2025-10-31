@@ -222,9 +222,10 @@ namespace coup
 
         if (tryBlock(Action::Tax)) {
             log.add("BLOCK: tax was blocked by Governor");
-            p.actions -= 1; // הפעולה נצרכה גם אם נחסמה
+            // לא צורכים תור במקרה של חסימה ע"י Governor
             return;
         }
+
 
         p.coins += gain;
         p.actions -= 1;
@@ -241,7 +242,7 @@ namespace coup
         p.coins -= 4;
 
         if (tryBlock(Action::Bribe)) {
-            p.actions -= 1;  // הפעולה נצרכה גם אם נחסמה
+            // לא צורכים תור במקרה של חסימה ע"י Judge
             log.add("BLOCK: bribe was blocked by Judge; coins lost");
             return;
         }
@@ -249,6 +250,7 @@ namespace coup
         // נטו +1 פעולה
         p.actions -= 1;
         p.actions += 2;
+
 
         // אין יותר "bribePendingCoup" — הכלל נקבע רק בתחילת תור
         log.add("ACTION: bribe by '" + p.name + "' -> +1 net action");
